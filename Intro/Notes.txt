@@ -1,0 +1,14 @@
+Angular Notes
+The Problem that angular JS is trying to solve: Easier manipulation of DOM and javascript like data and html; less manual work for complex code
+
+
+Model View Whatever
+Model View Controller (MVC); angular uses Model View Whatever (MV*);
+Model is equal to the data or the javascript example var firstname = 'leo';
+View is equal to what the user sees example <h1>leo</h1>
+The whatever is basically whatever happens in the view affects the view and what happens in the view affects the data automatically
+
+
+Custom Attributes
+Angular makes use of the fact that browser (DOM) ingores unrecognized attributes and do not affect the rendering of the page. 
+Angular JS custom attributes will be prefixed with ng-
