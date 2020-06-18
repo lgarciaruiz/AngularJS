@@ -1,0 +1,11 @@
+The hash # that is used as the href in the anchor tag is reffered to as a fragment identifier. It identifies a fragment of the page
+
+- Hash change is an event and you can keep track of it changing with the window.addEventListener('hashchange', function(){
+    console.log('has is ' + window.location.hash)
+})
+
+-- THE ANCHOR/ID DOES NOT HAVE TO EXIST FOR THE HASH CHANGE TO KEEP TRACK OF IT AND THE LOCATION TRACKING TO WORK
+
+This helps mimic as if you were going out and getting a new url. This makes it feel and behave like a native desktop application. 
+
+Keeping track of the hashchange will allow you to make ajax calls and go out and get the new page without having to actually reload a new page.

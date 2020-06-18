@@ -1,0 +1,29 @@
+Dependency Injection: Giving a function an object; Rather tehan creating an object inside a function, you pass it to the function. See lines 9-21 in app.js
+
+The Scope Service: The scope service is named $scope. All angular js services start with a '$'.
+
+$scope service is an object
+
+The idea is that you can add properties and functions to the scope. The scope then becomes the middle peice between the view and the controller
+
+How does angular do Dependency Injection? Angular uses the fact that a function can be read in as a string and parsed to see the params given to the function. When it does this it checks to see if one of the params given was one of it's services which start with $ see line 44 in app.js
+
+
+Arrays in javascript can contain functions even when the rest of the array has different types of elements
+
+
+** Dependency Injection and Minification **
+Minification: shrinking size of files for faster download
+- Normally add min to name of file. example file.js becomes file.min.js
+
+Minifying usually entails removing carriage returns spaces and shrinking variables names to short a,b,c,d names; Minifying a file where the variables change will break the angular code becuase it depends on being able to read the Dependency injections (params such as $scope)
+
+When Minifying for angualr you NEED to use the controller method with an array. See example below:
+
+myApp.controller('mainController', ['$scope', '$log', '$filter', '$resource', function($scope, $log, $filter, $resource){
+    code here;
+}]);
+
+the array will contain the name of the dependencies being injected (params) as strings and finally the function for the code to the controller. When using the order matters
+
+This works becuase minifiers will not modify strings

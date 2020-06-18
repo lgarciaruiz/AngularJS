@@ -1,0 +1,7 @@
+*** Multiple Controllers, Multiple Views ****
+- For multiple Controllers you just need to add a new controller name and add the name and ng-controller="nameofnewcontroller" to the div or element you want it attached to
+
+- Multiple controllers when you inject new dependendcies or services such as $scope will create their own instance a new object of the service and will not overwrited the other controller's $scope variables or bindings
+
+
+SinglePage apps and the Hash

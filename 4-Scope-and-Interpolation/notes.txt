@@ -1,0 +1,118 @@
+Interpolation: Creating a string by combining strings and placeholders/variables.
+-'My name is ' + name is interpolated, and results in 'My name is Tony'
+
+Angular can pass interpolated strings over to the DOM VERY EASY!! When you add a variable(property) to the $scope you can access it in the DOM, it becomes available in the DOM wherever the controller is being used.
+
+adding variable to scope: $scope.variableName = 'variable';
+
+Using it in the DOM: <h2> some text {{ varibaleName }}</h2>
+
+You can even interpolate inside of the curlybraces!!
+
+
+*** Directives and Two Way Data Binding ***
+Directive: instruction to angularJS to manipulate a piece of the DOM.
+- This could be 'Add a class', 'hide this', 'create this', etc.
+
+In angular JS adding the ng-model="$scopeVariableNameHere" to an html element will bind whatever data is in that element to the $scope.VariableNameHere variable. 
+
+the $scope.VaribleNameHere can be set to an empty string ' '. but when the element is updated it will also update the variable (see @Data Binding in index.html and app.js)
+
+
+*** WATCHERs and the Digest Loop ***
+- Angular JS adds event listeners for you and extending them. 
+- Angualr JS adds the angular context to the event loop that is native to the browser
+
+Angular JS - Angular Context adds watchers to all the variables and functions. The watcher will keep track of all the changes to variables and functions. This tracking happens in the Digest Loop.
+
+The Digest Loop cycles through all the variables and checks the old vs the new value and if something changed it updates this variable everywhere where it appears.
+
+After it updates the variable it runs another cycle to check if the update it made changes any other variable until the new and old values match
+
+All this happens when an event is triggered
+
+Angular Context is the thing that keeps the Model and the View in sync.
+
+Code that lives outside of the angular js context will not be connected make the Digest loop run. Thus it will not keep the model and the view synced/updated with each other.
+
+This can be fixed by using the apply() method on the $scope. 
+
+let someFunction = function (){
+    $scope.apply(function(){
+        code to apply to angular context
+    })
+}
+
+this will then make sure that when the code runs it will kick off a digest cycle and keep the view and the model connected.
+
+
+**** Common Directives ****
+ng-if: ng-if="variable !== otherVar"; 
+    - the expression must return true or false;
+    - when the expression returns true the element will dissapear from the DOM and a comment will be left in its place
+
+ng-show: ng-if="variable !== otherVar"; 
+    - works the same way as if, but does not make the html element dissapear, it merely hides it with css
+
+ng-hide: same as show, but hides elements
+
+ng-class: ng-class="{ 'class-name' : js expression must = true or false}
+    - ng-class directive will add a class (spearated from expression by :) if the given javascript expression is true
+    - multiple classes can be added with their own js expressions separated by commas see @ng-class in index.html
+
+ng-repeat: ng-repeat="obj in objArr"
+    - this repeat is basically a for each loop
+    - you can then use {{ item.propertyName }} to call the item you need
+
+OTHER COMMON DIRECTIVES
+ng-click: ng-cick="function()"
+most of the events have an ng-event attribute
+
+ng-cloak: hides elements until javascript has worked on it. This is useful so that the screen does not show the uninterpolated strings for example {{ varName }}.
+
+
+*** XMLHTTPRequest Object ***
+Making an XMLHTTPRequest which is native to the broswer is done like so:
+
+var request = new XMLHTTPRequest();
+request.onreadystatechange = function () {
+    //for angular to read need to add 
+    $scope.$apply(function () { //this is not needed for non angular apps
+        if (request.readyState == 4 && request.status == 200) {
+            let response = JSON.parse(request.responseText);
+        }
+    })
+}
+
+request.open("GET", "http://urlString.com", true);
+request.send();
+
+However all of this code is complex and needs too much code.
+
+
+
+******* External Data and $http ********
+- angularJS has an $http serivce
+
+myApp.controller('mainController', ['$scope', '$filter', '$http', function ($scope, $filter, $http){
+
+    $scope.handle = '';
+
+    $scope.lowercasehandle = function() {
+        return $filter('lowercase')($scope.handle);
+    };
+
+    $http.get('http:url.com')
+        //the param passed in to the function is the data you get back, can be called whatever
+        .success(function(result){
+            $scope.newVariable = result;
+        })
+        //returns data and the status for the error
+        .error(function (errordata, status){
+            console.log(errordata);
+            
+        });
+
+}]);
+
+- network tab in chrome will show you info about the api

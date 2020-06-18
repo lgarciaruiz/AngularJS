@@ -1,0 +1,17 @@
+- $location is the service used for the hash location
+- the hash location is found at $location.path()
+
+--Angular-route (ngRoute) helps in building SinglePageApplications SPAs
+    - ngRoute provides routing and deeplinking services and directives for SPAs based on the location.path()
+
+- the service $routeProvider makes it easy to setup the routing for when the hash is set to specific value
+    -$routeProvider is passed in to the config() method
+    -when passed in you will use the .when() method which takes in a string and an object
+        - the string is the hashlocation it should look for
+        - the object details where to look for the page to display and the controller to connect to this page
+            - the object uses: 
+                - templateUrl: location of html folder to display
+                - controller: name of controller to assign to this page
+
+- When using the $routeProvider you do not need to specify the ng-controller directive in the html
+- Only use the ng-view directive and the entire div will be replaced with the contents of the templateUrl
