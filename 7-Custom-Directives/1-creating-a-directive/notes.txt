@@ -1,0 +1,62 @@
+Normalize: to make consistent to a standard.
+
+Directives > HTML Reusable components most of the time use the standar of name-of-class but the "-" in javascript is the operator minus and not usuable in variable names. 
+
+Angular js uses normalization to change name-of-class to nameOfClass, using camel case.
+
+*** CUSTOM DIRECTIVES ***
+- Custom Directives are created with the .directive method;
+    - myApp.directive('nameOfDirective', function(){
+        //returns an object with the actual directive as an object
+        //directive will contain several properties that angular js uses to define the directive
+        return {
+            template: 'html string to show',
+        }
+    })
+
+- The custom directive can then be used in the html code as <name-of-directive></name-of-directive> or <div name-of-directive></div>
+    -setting the property replace to true will completly replace the directive with the info in the template property of the directive
+
+    -the restrict property of the directive can be used to set whether this directive should replace A(attributes using the directive), E(elements named after the directve) or both AE (this is default).
+        - this also has C = class, M = commments
+
+
+**** TEMPLATES ****
+Templates can sometimes get really big so rather than using the template property, place the template in it's own html file and even in it's folder if you want and use the templateUrl property. 
+
+
+**** SCOPE (@, =, and other obtuse symbols) ****
+- When a varible is created and added to the $scope, the directive that is used in that controller will aslo have access to that variable and you would be able to call the variables using {{ object.property }} to call the variable
+
+** Isolating the scope is the process of detaching the scope variables from the directives so that the directive can not affect the model(controller) data
+    -this is done by adding a scope property to the directive and setting it to be empty
+        - the scope property is an object (see @isolating scope)
+
+- When you isolate the scope for a directive you essentially give it it's own scope. This means that the directive will be completly unaware and unable to use any of the properties in the controller's scope
+
+- So when you need access to a specific property found in the controller you will need to poke holes in the controller or model's scope to access them
+
+- poking holes can be done by adding attributes to the directive in the html (view) example below uses interpolation to get string
+
+example <name-of-directive scope-var-need-access-to="{{ scope.property }}"></name-of-directive>
+
+when getting access to scope-var-need-access-to in the directive's scope you can set it in the scope object as a property using the @ symbol which means text
+    - scope: {
+        scopeVarNeedAccessTo : "@"; //when the property is set to the normalized name of the attribute you can use the @ symbol only
+        scopeVarNeedAccessToSpecial: "@scopeVarNeedAccessTo",// you can also use a different name and then set the propety equal toe the nomralized attribute name with the @symbol beofre it
+    }
+
+The @ symbol works for text binding and it is one way binding 
+
+When access is needed for an object you must use the = symbol. The = symbol allows you to be able to poke holes in a controller to bring over objects to an isolated scope but you must consider that it is two way binding meaning if changed in the directive it will change the model. 
+
+This is used as follows in the scope property of the directve:
+scope {
+    nameOfObject: "=",
+    //or can be set to different name 
+    nameOfObjectSpecial: "=nameOfObject"
+}
+
+Once this is done you can use the bindings as you would any other object that has properties: nameOfObject.property. Use it with interpolation {{ nameOfObject.property}}
+
+USE @ SYMBOL FOR TEXT, USE = SYMBOL FOR OBJECTS

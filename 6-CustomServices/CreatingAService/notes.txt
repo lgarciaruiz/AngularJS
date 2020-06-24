@@ -1,0 +1,36 @@
+Singleton: The one and only copy of an object;
+
+AngualrJS services are implemented as singletons
+ - $scope is an exception to the rule; $scope creates a new copy of the object when injected to a new controller
+
+ *** Creating Custom Services in angularJS ****
+ Creating a serivce is easy!
+
+ - call the name of your app with serivce method; this method takes the name of your service as a string and the function as params.
+
+ appName.service('nameOfSerivce', function(){code here})
+
+ - to gain access to the service simply pass it as a parameter to your controller:
+ appName.controller(mainController', ['$scope', '$log', 'nameOfSerivce', function($scope, $log, nameOfSerivce) {
+     nameOfSerivce.myMethod();
+ }]);
+
+
+- Custom Services can be used to encapsulate functionality that you want shared across different controllers
+
+- when you create custom services; these services do not get updated with the digest loop
+    - You need to do it manually to your custom services by adding $watch.('nameOfScopePropertyToWatch', function(){
+        nameOfCustomService.nameOfProperty = $scope.nameOfScopePropertyToWatch;
+
+        //this peice of code will update the custom service with the digest loop if it sees that the view updated the value of nameOfScopePropertyToWatch and will keep the model and the veiw siynced
+    })
+
+- Custom services are singletons and will carry the same properties and share them across objects.
+
+-Factories: are basically the same thing as a service, they are similar and if you know how to use services you know how to use Factories
+
+-providers: you're rarely have to use; NEED TO LOOK UP PROVIDERS 
+
+__Services are the simplest form of the these
+
+***SIDE NOTE*** ng-model directives are attached to specific $scope variables 

@@ -1,0 +1,15 @@
+<label for="">Search</label>
+<input type="text" value="doe">
+
+<h3>Results</h3>
+
+<div class="list-group">
+    <div class="list-group">
+        <!-- added person-name attribute with interpolated value of the person.name from the model(controller) this is text -->
+        <!-- <search-results person-name="{{ person.name }}"></search-results> -->
+    </div>
+    <!-- the directive here, person-object = person means that we are passing over the person object NOT text from the main controller scope -->
+    <div class="list-group">
+        <search-results person-object="person"></search-results>
+    </div>
+  </div>
