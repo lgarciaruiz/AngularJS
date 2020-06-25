@@ -57,6 +57,26 @@ scope {
     nameOfObjectSpecial: "=nameOfObject"
 }
 
-Once this is done you can use the bindings as you would any other object that has properties: nameOfObject.property. Use it with interpolation {{ nameOfObject.property}}
+Once this is done you can use the bindings in the assigned template for the directive as you would any other object that has properties: nameOfObject.property. Use it with interpolation {{ nameOfObject.property}}
 
 USE @ SYMBOL FOR TEXT, USE = SYMBOL FOR OBJECTS
+
+Passing in functions through "poked holes"
+Functions can also be passed in just as text and objects. Functions are indicated as such or binded to their property scope name using the & symbol.
+
+Passing in functions to the directive is done by naming the functin using normalized directive html name name-of-function and setting it equal to the name of the function in the controller along with any param(s) names needed; name-of-function="nameOfFunction(paramName)"
+
+The function can then be set in the scope of the directive with the nomralized js name of nameOfFunction and mapping it with the & symbol:
+scope {
+    nameOfFunction: "&",
+}
+
+Using the function in the template is looks a bit complicated but it is not at all. 
+
+when you want to call in the function in the template simply use {{ nameOfFunction()}}. However when the function is used with params you need to pass in a mapped object not a param as you would normally do in js. 
+
+A function with params will NEED to use the same param name used in when passing in to the directive and mapped to the object you want to passed in. The object you want to pass in will have to exist. 
+
+example using paramName used on line 67 and object used in line 51{{ nameOfFunction( {paramName:nameOfObject })}}
+
+This will then be interpolated to the function output

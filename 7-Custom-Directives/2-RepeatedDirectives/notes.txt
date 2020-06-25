@@ -1,0 +1,5 @@
+ng-repeat can be used with custom directives in case you are using objects that are arrays that have multiple objects with in them. It will act as a loop and create use the template assigned to the directive for each of the objects in the object passed in to ng-repeat
+
+when using ng-repeat the object has to match the object retrieved by the directive see main.html for example where we are retrieving person as an object and then calling ng repeat for person in people, people being the $scope.people array in the controller named mainController the app.js file line 26
+
+in the example above ng-repeat will replace the directive with a copy of searchresult.html for each person in the people array

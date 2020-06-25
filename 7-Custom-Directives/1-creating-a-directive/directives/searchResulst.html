@@ -5,6 +5,14 @@
     </div>
     <p class="mb-1">
     {{ personObject.address }}
-    <!-- personObject.name -->
+    </p>
+    <p class="mb-1">
+    <!-- below is how you use a function that has been passed into a directive's isolated scope from a controller
+    
+        call the function as named in the js file but it needs to be passed in with an object map using the same param name used when calling the function with the html directive
+
+        the propety has to be mapped to the object as called in to the directive's isolated scope
+    -->
+    {{ formattedAddressFunction({ aperson: personObject }) }}
     </p>
 </a>

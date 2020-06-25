@@ -10,6 +10,10 @@
     </div>
     <!-- the directive here, person-object = person means that we are passing over the person object NOT text from the main controller scope -->
     <div class="list-group">
-        <search-results person-object="person"></search-results>
+        <!-- below we pass in formattedAddress function from the controller to the direcitve search-results via the formatted-address-function property
+        
+            the param aperson will be used in the template of search-results directive exactly as it appears here to map to the object you want to pass in
+        -->
+        <search-results person-object="person" formatted-address-function="formattedAddress(aperson)"></search-results>
     </div>
   </div>

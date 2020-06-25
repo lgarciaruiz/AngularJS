@@ -25,8 +25,15 @@ myApp.controller('mainController', ['$scope', '$log', function($scope, $log) {
     
     $scope.person = {
         name: 'John Doe',
-        address: 'some address 12345'
+        address: 'some address',
+        city: 'New City',
+        state: 'State',
+        zip: '212354'
     }
+
+    $scope.formattedAddress = function (person) {
+        return `${person.address}, ${person.city}, ${person.state} ${person.zip}`;
+    };
     
 }]);
 
@@ -59,7 +66,9 @@ myApp.directive('searchResults', function() {
             //the equal sign means this is a two way binding and it binds the personObject in the directive with the person object in the controller; whatever happens in the directive will pass over to the model so you have to be careful
             //like before the name of the property does not have to match the html norlmalized version you could use a different name as long as the property is assigned using the =symbol
             //personObjectVar: "=personObject"
-            personObject: "="
+            personObject: "=",
+            //& symbol is used to bind the formattedAddressFunction normalized property to the function it that was passed in from the contoller
+            formattedAddressFunction: "&"
         }
     }
 });
