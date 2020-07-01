@@ -8,6 +8,8 @@ AngualrJS services are implemented as singletons
 
  - call the name of your app with serivce method; this method takes the name of your service as a string and the function as params.
 
+ The name of the service cannot contain dashes
+
  appName.service('nameOfSerivce', function(){code here})
 
  - to gain access to the service simply pass it as a parameter to your controller:
@@ -19,11 +21,14 @@ AngualrJS services are implemented as singletons
 - Custom Services can be used to encapsulate functionality that you want shared across different controllers
 
 - when you create custom services; these services do not get updated with the digest loop
+-watch takes the name of the scope property or variable you cannot make it up it needs to exist in the scope
     - You need to do it manually to your custom services by adding $watch.('nameOfScopePropertyToWatch', function(){
         nameOfCustomService.nameOfProperty = $scope.nameOfScopePropertyToWatch;
 
         //this peice of code will update the custom service with the digest loop if it sees that the view updated the value of nameOfScopePropertyToWatch and will keep the model and the veiw siynced
     })
+
+-In order for $watch to work you need to bind the service in the html using the same scope name as the ng-model
 
 - Custom services are singletons and will carry the same properties and share them across objects.
 

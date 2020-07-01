@@ -1,0 +1,6 @@
+**** TRANSCLUSION ****
+TRANSCLUSION including one document inside another; place a copy of one doc at a particular point inside another
+
+In angular js TRANSCLUSION is used with ng-transclude. If you insert ng-transclude either as an element or as an attribute to another element you can call the piece of text you insterted within the directive at the place you called ng-transclude;
+
+For transclude to work you will have to modify the custom directive model to inlcude the transclude property and set it to true.

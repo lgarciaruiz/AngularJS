@@ -1,0 +1,7 @@
+ngResource wraps up the http service that comes with angular js; 
+
+ngResource makes it easy to go get data from the internet
+
+when getting data from the internet the broswer might complain about something not beign right so you need to pass in {callback: "JSON_CALLBACK"}, {get: {method: "JSONP"}} to $resource so that it does not complain. See @ngResource in app.js
+
+angular js allows to use filters in the view see forecast.html to see how I convet the date 

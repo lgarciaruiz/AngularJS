@@ -1,0 +1,9 @@
+<a href="#" class="list-group-item">
+    <small><ng-transclude></ng-transclude></small>
+    <h4 class="list-group-item-heading">{{ personObject.name }}</h4>
+    <p class="list-group-item-text">
+        {{ formattedAddressFunction({ aperson: personObject }) }}
+    </p>
+    <!-- the below code will also place the transcluded text on the page at the position that the tag existst -->
+    <small ng-transclude></small>
+</a>

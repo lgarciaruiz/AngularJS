@@ -1,0 +1,33 @@
+Compile and Link
+When building code, compiler converts code to lower lever language and linker generates a file the computer will actually interact with
+
+compile is a property in the custom directive (directive) object it runs once per direcitve call.
+
+So <custom-directive></custom-directive> will run compile once. If other directives exist in the html that are the same name, each one will run it's own compile property. compile function has access to element and attributes params.
+
+In the compile function you can write your own code and are able to manipulate the template it's associated with before it gets posted on the page. Gives you one last chance to change directive itself.
+
+Compile property is a function and it returns an object with two other functions name pre and post. These have access to some params like scope, elemetns and attributes
+
+pre and post are functions property that is returned by compile.
+
+pre is a function that runs before html gets interpreted on the page (AVOID USING PRE NOT SAFE)!
+
+post is a function that runs after html gets interpreted on the page. post has access to scope, elements and attributes params
+
+post is what gets interpreted after compile and pre link happen
+
+scope = model
+elements & attributes = view
+
+compile should be used when you want to jump in with your own code before the html is generated and put on in the view
+
+You'll almost never have to write code on the compile it is very rare. Most of the time you will want to write code in the post function the compile function returns.
+
+Because compile is hardly ever used you should use the link property in the custom directive. link is basically the same thing as an empty compile (no code because it's not best practice) and a post link with custom code
+
+You need to be careful in the link function because if you have a lot of elements you can potentially slow down your page with the code in the link function.
+
+
+**** TRANSCLUSION ****
+TRANSCLUSION including one document inside another; place a copy of one doc at a particular point inside another
