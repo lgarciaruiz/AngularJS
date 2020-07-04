@@ -5,3 +5,85 @@ ngResource makes it easy to go get data from the internet
 when getting data from the internet the broswer might complain about something not beign right so you need to pass in {callback: "JSON_CALLBACK"}, {get: {method: "JSONP"}} to $resource so that it does not complain. See @ngResource in app.js
 
 angular js allows to use filters in the view see forecast.html to see how I convet the date 
+
+When building larger apps it's best to move reusable things outside of controllers and turning them into services that can be reused in a different part of your app. For example it makes sense to move any get method that is getting a very specific thing out of a controller and creating a service that only does this one thing so that many people can use it.
+
+
+*** NESTED CONTROLLERS ***
+- controllers can be nested;
+- create the controllers you need
+- in the view you would nest contollers liks so:
+<div ng-controller="parentController"> 
+    <div ng-controller="chilcController"></div>
+</div>
+
+-if both contollers have a variable named the same thing in each of their scopes you would still be able to access each one indivdually by simply calling in it with interpolation:
+fakeapp.controller('parentController', function(){
+ $scope.message = 'parent message';
+});
+fakeapp.controller('childController', function(){
+ $scope.message = 'child message';
+});
+
+<div ng-controller="parentController"> 
+    {{ message }}
+    <div ng-controller="chilcController">
+        {{message}}
+    </div>
+</div>
+
+-you can access the parent contoller variable in the child controller by using {{$parent.message}} however this could get very messy if you have many parents and children; 
+
+- it is important to know that when looking for a variable to interpolate if angular does not find one it will move to the parent and see if it exists and pull that in.
+
+- this allows us a better way of access parent controller variables.
+
+-create a unique variable name for each contoller and bind it to an object:
+- Add the variables not the scope but to this new object
+
+fakeapp.controller('parentController', function(){
+    $scope.parent1Obj = {};
+    $scope.parent1Obj.message = 'parent message';
+});
+fakeapp.controller('childController', function(){
+    $scope.child1Obj = {};
+    $scope.child1Obje.message = 'child message';
+});
+
+<div ng-controller="parentController"> 
+    {{ parent1Obj.message }}
+    <div ng-controller="chilcController">
+    <!-- below will access parent's message -->
+        {{ parent1Obj.message }}
+        {{ message }}
+    </div>
+</div>
+
+- in the code above, line 57 will try and access parent1Obj.message in the childController but will not find it so it will bubble up to the parent controller where it will find and bring it in
+
+ ** Controller As **
+
+ -controller as is an alternative to $scope; you do not need to use $scope.varName any more you can simply attach the variables to the functoin itself using this keyword
+
+ fakeapp.controller('parentController2', function(){
+    this.parent2Obj.message = 'parent message';
+});
+fakeapp.controller('childController2', function(){
+    this.child2Obje.message = 'child message';
+});
+
+- You can then use the controller as giveName and use this name to call the message
+
+<div ng-controller="parentController as parent2"> 
+    {{ parent2.message }}
+    <div ng-controller="chilcController as child2">
+    <!-- below will access parent's message -->
+        {{ parent2.message }}
+        {{ child2.message }}
+
+        <!-- this also allws for two way binding; changing this input value will also change the variable in the model you just need to attach the model using the as name given to the controller-->
+        <input type="text" ng-model="parent2.message" />
+    </div>
+</div>
+
+-- THIS WILL NOT WORK IF YOU WANT TO ADD YOUR OWN WATCHER; if you need your own watcher you will still have to inject $scope

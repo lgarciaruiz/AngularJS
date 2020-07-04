@@ -1,20 +1,9 @@
-<h1>this is forecast for {{ cityName }}</h1>
-
+<a href="#/">Search</a>
+<hr>
+City: <a href="#/forecast/Buckeye" ng-class="{ 'bg-primary' : cityName === 'Buckeye' }">Buckeye</a> | <a href="#/forecast/Waco" ng-class="{ 'bg-primary' : cityName === 'Waco' }">Waco</a>
+<hr>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ convertDate(weatherResult.dt) | date: 'MMM d, y' }}</h3>
-            </div>
-            <div class="panel-body">
-                Current Temperature {{ convertToFahrenheit(weatherResult.main.temp) }} F
-            </div>
-            <div class="panel-body">
-                Feels Like {{ convertToFahrenheit(weatherResult.main.feels_like) }} F
-            </div>
-            <div class="panel-body">
-                Today's High {{ convertToFahrenheit(weatherResult.main.temp_max) }} F
-            </div>
-        </div>
+        <query-result wq-result="weatherResult" cvrt-to-farh="convertToFahrenheit(weatherObject)" cvrt-date="convertDate(weatherObject)"></query-result>
     </div>
 </div>
